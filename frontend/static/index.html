@@ -1,0 +1,67 @@
+<script>
+  const API_URL = "http://localhost:9000";
+
+  async function fetchTodos() {
+    try {
+      const response = await fetch(`${API_URL}/todos`);
+      if (!response.ok) throw new Error(`GET /todos failed: ${response.status}`);
+      const todos = await response.json();
+
+      const list = document.getElementById("todoList");
+      list.innerHTML = "";
+
+      todos.forEach((todo) => {
+        const li = document.createElement("li");
+        li.textContent = todo.content;
+
+        const deleteBtn = document.createElement("button");
+        deleteBtn.textContent = "Delete";
+        deleteBtn.onclick = () => deleteItem(todo._id);
+
+        li.appendChild(deleteBtn);
+        list.appendChild(li);
+      });
+    } catch (err) {
+      console.error("fetchTodos error:", err);
+    }
+  }
+
+  async function addItem() {
+    const input = document.getElementById("newItem");
+    const content = input.value.trim();
+    if (!content) return;
+
+    try {
+      const response = await fetch(`${API_URL}/todos`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ content }),
+      });
+
+      if (!response.ok) {
+        console.error("POST /todos failed:", response.status, await response.text());
+        return;
+      }
+
+      input.value = "";
+      await fetchTodos();
+    } catch (err) {
+      console.error("addItem error:", err);
+    }
+  }
+
+  async function deleteItem(id) {
+    try {
+      const response = await fetch(`${API_URL}/todos/${id}`, { method: "DELETE" });
+      if (!response.ok) {
+        console.error("DELETE failed:", response.status, await response.text());
+        return;
+      }
+      await fetchTodos();
+    } catch (err) {
+      console.error("deleteItem error:", err);
+    }
+  }
+
+  fetchTodos();
+</script>
