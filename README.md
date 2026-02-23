@@ -8,6 +8,14 @@ A full-stack Task Tracking system built with:
 - **HTML, CSS, JavaScript** (Frontend)
 
 ---
+## Git use 
+`git clone repo` 
+
+`git add .` 
+
+`git commit -m “update”`
+
+`git push origin main`
 
 ## Features
 
