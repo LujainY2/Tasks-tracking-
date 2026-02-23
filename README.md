@@ -33,6 +33,8 @@ The frontend is served directly by FastAPI and provides a modern, responsive UI.
 - Interactive status updates
 - Clean and minimal layout
 
+available at:
+http://localhost:9000/
 ---
 
 ## 🗄 Database (MongoDB)
@@ -53,7 +55,8 @@ The application stores tasks inside MongoDB with persistent Docker volumes.
   - created_at
 
 MongoDB authentication is enabled using environment variables.
-
+available at:
+http://localhost:9090/
 ---
 
 ## ⚙ Backend API (FastAPI)
