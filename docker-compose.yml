@@ -1,45 +1,31 @@
 services:
+
   backend:
-    image: mysite-backend
-    container_name: mysite-backend
     build:
-      context: ./backend
-      dockerfile: Dockerfile
-      target: runner
+      context: ./app
+    container_name: tasktracker-backend
     ports:
       - "9000:8000"
     env_file:
-      - ./backend/.env
+      - ./app/.env
     depends_on:
       - mongodb
     restart: unless-stopped
 
-  frontend:
-    image: mysite-frontend
-    container_name: mysite-frontend
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
-    ports:
-      - "3000:80"
-    depends_on:
-      - backend
-    restart: unless-stopped
-
   mongodb:
     image: mongo:7.0.12
-    container_name: mysite-mongodb
+    container_name: tasktracker-mongodb
     ports:
       - "27018:27017"
-    volumes:
-      - mongodb-data:/data/db
     env_file:
       - ./mongodb/.env
+    volumes:
+      - mongodb-data:/data/db
     restart: unless-stopped
 
   mongo-express:
     image: mongo-express:1.0.2
-    container_name: mysite-mongo-express
+    container_name: tasktracker-mongo-express
     ports:
       - "9090:8081"
     env_file:
