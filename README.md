@@ -1,5 +1,4 @@
 # 🗂 Task Tracker Application
-
 A full-stack Task Tracking system built with:
 
 - **FastAPI** (Backend API)
